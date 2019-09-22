@@ -1,0 +1,24 @@
+function line = points2lineGF2D(point1,point2,origin)
+% Convert Points to Line in General Form in 2D
+% 
+% Inputs:
+%       <point1>    (2XM) points in 2D
+%       <point2>    (2XM) points in 2D
+%       <origin>    (2XM) origin of the coordinate system (OPTIONAL)
+%
+% Output:
+%       <line>      (3XM) Line parameters in General Form (A,B,C)
+
+if nargin<3
+    origin = zeros(size(point1));    % Default origin
+end
+
+x1 = point1(1,:);       y1 = point1(2,:);
+x2 = point2(1,:);       y2 = point2(2,:);
+dx = x2-x1;             dy = y2-y1;
+% center of x and y (from image and camera literature)
+cx = origin(1,:);       c
+
+A = dy;         B = -dx;            C = dx.*y1-dy.*x1;
+line = [A;B;C];
+return

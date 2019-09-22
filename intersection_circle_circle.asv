@@ -1,0 +1,73 @@
+function [p1,p2] = intersection_circle_circle(C1,C2)
+% -------------------------------------------------------------------------
+% Intersection of circle with another circle.
+% If there is no intersection, output is NaN
+%
+% Usage:
+%       [p1,p2] = intersection_circle_line(C1,C2)
+%
+% Inputs:
+%       <C1>        (3XM) circles in the following format:  (x - x1)^2 + (y - y1)^2 = r^2
+%       <C2>        (3XM) circles in the following format:  (x - x_c)^2 + (y - y_c)^2 = r^2
+%
+% Outputs:
+%       <p1>        (2XM) points of intersection
+%       <p2>        (2XM) points of intersection
+%
+% Implementation:   Mohamed Mustafa
+%                   Carnegie Mellon Qatar, May 2010
+% -------------------------------------------------------------------------
+x1 = C1(1,:);       y1 = C1(2,:);       r1 = C1(3,:);
+x2 = C2(1,:);       y2 = C2(2,:);       r2 = C2(3,:);
+
+dx = x2 - x1;       dy = y2 - y1;       dist = sqrt(dx.^2 + dy.^2);
+a = (r1.^2 - r2.^2 + dist.^2)./(2*dist);
+h = sqrt(r1.^2 - a.^2);
+
+% find the coordinates of the middle point
+x_m = x1 + (a./dist).*dx;
+y_m = y1 + (a./dist).*dy;
+% find p1 and p2
+p1 = [x_m;y_m] + repmat(h./dist,2,1).*[dy;-dx];
+p2 = [x_m;y_m] - repmat(h./dist,2,1).*[dy;-dx];
+
+% fix output when intersection doesn't occur
+ind = union(find(imag(h)),find(isnan(h)));
+p1(:,ind) = repmat(nan,2,length(ind));
+p2(:,ind) = repmat(nan,2,length(ind));
+return
+
+
+
+
+% intersection_circle_circle
+% -----------------------------------------------------------------------
+%   intersection_circle_circle(x1,y1,r1,x2,y2,r2) find the intersection Points of two
+%   Circles
+% -----------------------------------------------------------------------
+% function [p1 p2] = intersection_circle_circle(x1,y1,r1,x2,y2,r2)
+% 
+% dx = x2 - x1;
+% dy = y2 - y1;
+% dist = sqrt(dx^2+dy^2);
+% 
+% case1 = dist>r1+r2;           % circles are not in contact
+% case2 = dist<abs(r1-r2);      % once circle inside the other
+% case3 = (dist==0 && r1==r2);  % the 2 circles are the same circle
+% 
+% if(case1 || case2 || case3)
+%     % no intersection points
+%     p1 = [];
+%     p2 = [];
+% else
+%     % point/s of intersection
+%     a = (r1^2-r2^2+dist^2)/(2*dist);
+%     h = sqrt(r1^2 - a^2);
+%     % find the coordinates of the middle point
+%     x_m = x1 + (a/dist)*(dx);
+%     y_m = y1 + (a/dist)*(dy);
+%     % find p1 and p2
+%     p1 = real([x_m y_m]' + (h/dist)*[dy -dx]');
+%     p2 = real([x_m y_m]' - (h/dist)*[dy -dx]');
+% end
+% return

@@ -1,0 +1,49 @@
+function [p1,p2] = intersection_circle_line(C,L)
+% -------------------------------------------------------------------------
+% Intersection of circle with line.
+%
+% Usage:
+%       [p1,p2] = intersection_circle_line(C,L)
+%
+% Inputs:
+%       <C>         (3XM) or (6XM) First set of lines with the following format:   r1 + t*v1
+%       <L>         (4XM) or (6XM) Second set of lines with the following format:  r2 + t*v2
+%
+% Outputs:
+%       <point>     (3XM) points of intersection
+%       <info>      (1XM) -->   0:  Lines are skewed or intersect
+%                               1:  Lines are parallel or on each other
+% 
+% Source:
+%                   http://mathworld.wolfram.com/Line-LineIntersection.html
+%
+% Implementation:   Mohamed Mustafa
+%                   Carnegie Mellon Qatar, October 2009
+% -------------------------------------------------------------------------
+% circle <C> is defined as:     (x - x_c)^2 + (y - y_c)^2 = r^2
+% line  <L> is defined as:      x = p_x + v_x*t
+%                               y = p_y + v_y*t
+
+% from <C>
+x_c = C(1,:);       y_c = C(2,:);       r_c = C(3,:);
+% from <line>
+p_x = L(1,:);       p_y = L(2,:);       v_x = L(3,:);       v_y = L(4,:);
+
+a = v_x.^2 + v_y.^2;
+b = 2*(v_x.*(p_x - x_c) + v_y.*(p_y - y_c));
+c = (p_x - x_c).^2 + (p_y - y_c).^2 - r_c.^2;
+
+t1 = (-b+sqrt(b.^2-4*a.*c))./(2*a);
+t2 = (-b-sqrt(b.^2-4*a.*c))./(2*a);
+
+x1 = p_x + v_x.*t1;         y1 = p_y + v_y.*t1;
+ind = union(find(imag(x1)),find(imag(y1)));
+x1(ind) = nan;              y1(ind) = nan;
+p1 = [x1;y1];
+
+x2 = p_x + v_x.*t2;         y2 = p_y + v_y.*t2;
+ind = union(find(imag(x2)),find(imag(y2)));
+x2(ind) = nan;              y2(ind) = nan;
+p2 = [x2;y2];
+return
+

@@ -1,0 +1,17 @@
+function out = add_complex(a,b,type)
+% Inputs:
+%   <a>     (NX3) [x/M      y/theta     0/1]
+%   <b>     (NX3) [x/M      y/theta     0/1]
+
+if nargin<3
+    type = 'rect';  % rectangular coordinate
+    if nargin<2
+        error('Bad Parameters!');
+    end
+end
+
+% convert all <a> and all <b> to rectangular coordinate system
+ind_a = find(a(:,3));           ind_b = find(b(:,3));
+[a(ind,1),a(ind,1) = pol2cart(a(ind,2),a(ind,1));
+
+return

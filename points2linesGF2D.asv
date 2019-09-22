@@ -1,0 +1,12 @@
+function Lgf = points2linesGF2D(point1,point2)
+% Convert Points to Line in General Form in 2D
+% 
+% Inputs:
+%       <point1>    (XM) points in 3D
+%       <point2>    (6XM) planes in point-normal format.
+%
+% Output:
+%       <dist>      (1XM) SIGNED distance
+%       <proj>      (3XM) projection of each point on the plane
+
+return

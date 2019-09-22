@@ -1,0 +1,21 @@
+function P = homog2cart(P)
+% -------------------------------------------------------------------------
+% Cartesian-to-homogeneous coordinate function.
+%
+% Usage:
+%       P = homog2cart(P)
+%
+% Inputs:
+%       <P>         (3XM) or (4XM) homogeneous points
+%
+% Outputs:
+%       <P>         (2XM) or (3XM) caresian points
+%
+% Implementation:   Mohamed Mustafa
+%                   Carnegie Mellon Qatar, July 2010
+% -------------------------------------------------------------------------
+
+w = P(end,:);
+P = [P;ones(1,size(P,2))];
+return
+% -------------------------------------------------------------------------

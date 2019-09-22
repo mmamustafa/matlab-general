@@ -1,0 +1,14 @@
+function [a,b,flag] = complex_test_inputs(a,b)
+s_a_1 = size(a,1);      s_a_2 = size(a,2);
+s_b_1 = size(b,1);      s_b_2 = size(b,2);
+
+if s)~=size(b,1) || size(a,2)~=size(b,2)
+    error('Size <a> does not equal to size <b>!')
+end
+if size(a,2)~=2 && size(a,1)~=2
+    error('Bad Parameters! Columns or raws of <a> should equal to 2!');
+end
+if size(a,1)==2 && size(a,2)>size(a,1)
+    a = a';     b = b';
+end
+return

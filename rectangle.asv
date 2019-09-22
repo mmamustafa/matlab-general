@@ -1,0 +1,30 @@
+% Rectangle
+% if w or h are negative, be careful as the output will be rotated or
+% fliped.
+function pts = rectangle(arg,clr)
+if nargin<2
+    clr = 'r';
+end
+
+n = size(arg,2);  % number of rectangles
+x = arg(1,:);
+y = arg(2,:);
+w = arg(3,:);
+h = arg(4,:);
+if size(arg,1)<5
+    theta = zeros(1,n);
+else
+    theta = arg(5,:);
+end
+p1 = repmat([0;0],1,n);
+p2 = repmat([w;0],1,n);
+p3 = repmat([w;h],1,n);
+p4 = repmat([0;h],1,n);
+
+for i=1:n
+    R = [cos(theta(i)) sin(theta(i));-sin(theta(i)) cos(theta(i))];
+    pts(:,:,i) = R*[p1(:,i) p2(:,i) p3(:,i) p4(:,i)] + repmat([x(i);y(i)],1,4);
+    
+    line
+end
+return

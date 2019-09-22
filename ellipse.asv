@@ -1,0 +1,9 @@
+function ellipse(x_c, v1, v2, v3)
+% put the exceptions and if-statements
+
+a = sqrt(sum(v1.^2)); b = sqrt(sum(v2.^2));
+x1 = [-a:0.01:a]; y1 = sqrt(1-(x1.^2)./(a.^2));
+x = [x1 fliplr(x1)]; y = [y1 fliplr(-y1)];
+
+v1_unit = unit_vector
+return

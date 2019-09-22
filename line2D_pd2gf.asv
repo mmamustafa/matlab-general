@@ -1,0 +1,26 @@
+function line_gf = line2D_pd2gf(line_pd)
+% Convert Position/Direction form to Line in General Form in 2D
+% 
+% Inputs:
+%       <line_pd>   (4XM) Position direction format (r0 + t*v0)
+%
+% Output:
+%       <line_gf>   (3XM) Line parameters in General Form (A,B,C)
+
+point1 = line_pd(1:2,:);
+point2 = line_pd(3:4,:) + line_pd(1:2,:);
+
+x1 = point1(1,:);       y1 = point1(2,:);
+x2 = point2(1,:);       y2 = point2(2,:);
+
+
+
+x1 = line_pd(1,:);          y1 = line_pd(2,:);
+x2 = line_pd(3,:)+line_pd(1,:);     
+dx = x2-x1;                 dy = y2-y1;
+% center of x and y (from image and camera literature)
+cx = origin(1,:);           cy = origin(2,:);
+
+A = dy;         B = -dx;            C = dx.*(y1-cy)-dy.*(x1-cx);
+line_gf = [A;B;C];
+return

@@ -1,0 +1,39 @@
+function dcm = eul2dcm(eul)
+% -------------------------------------------------------------------------
+% Euler Angles to Direction Cosine Matrix
+% Rotation around: Z-axis, then Y-axis, then X-axis.
+% All angles are counterclockwise.
+% 
+% Usage:
+%       dcm = eul2dcm(eul)
+%
+% Input:
+%       <eul>       (3X1) vector (yaw, pitch, roll)
+%
+% Output:
+%       <dcm>       (3X3) matrix
+%
+% Source:           http://www.mathworks.com/access/helpdesk_r13/help/toolbox/aeroblks/euleranglestodirectioncosinematrix.html#1191970
+%
+% Implementation:   Mohamed Mustafa
+%                   Carnegie Mellon Qatar, October 2009
+% -------------------------------------------------------------------------
+
+% define each input as angle
+if length(eul)==1
+    
+elseif length(eul)==3
+    
+else
+    
+end
+a = eul(1);  b = eul(2);  c = eul(3);
+
+% right-handed rotation around each
+R_x = [1 0 0;0 cos(c) sin(c);0 -sin(c) cos(c)];
+R_y = [cos(b) 0 -sin(b);0 1 0;sin(b) 0 cos(b)];
+R_z = [cos(a) sin(a) 0;-sin(a) cos(a) 0;0 0 1];
+
+% Around: first z, then y, then x
+dcm = R_x*R_y*R_z;
+return
